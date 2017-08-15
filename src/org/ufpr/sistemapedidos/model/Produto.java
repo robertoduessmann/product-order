@@ -10,7 +10,7 @@ public class Produto {
 		this.id = id;
 		this.descricao = descricao;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

@@ -43,9 +43,12 @@ public class JFCliente extends javax.swing.JFrame {
         txt_ID = new javax.swing.JTextField();
         txt_CPF = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Clientes");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(650, 500));
+        setMinimumSize(new java.awt.Dimension(650, 500));
+        setPreferredSize(new java.awt.Dimension(650, 500));
         setType(java.awt.Window.Type.POPUP);
 
         jLabel1.setText("CPF");
@@ -186,9 +189,24 @@ public class JFCliente extends javax.swing.JFrame {
         try {
             boolean sucesso;
             clienteController = new ClienteController();
+            String cpf = txt_CPF.getText().trim().replace(".", "").replace("-", "").replace(" ", "");
 
             if (Integer.parseInt(txt_ID.getText()) == 0) {
-                sucesso = clienteController.Gravar(txt_CPF.getText().replace(".", "").replace("-", ""), txt_Nome.getText(), txt_SobreNome.getText());
+
+                if (cpf.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Informe o CPF do cliente.", "Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                else if (txt_Nome.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Informe o Nome do cliente.", "Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    return;                  
+                }
+                 else if (txt_SobreNome.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Informe o Sobrenome do cliente.", "Cliente", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                                
+                sucesso = clienteController.Gravar(cpf, txt_Nome.getText(), txt_SobreNome.getText());
 
                 if (sucesso) {
                     JOptionPane.showMessageDialog(null, "Gravado com sucesso", "Cliente", JOptionPane.INFORMATION_MESSAGE);
@@ -196,8 +214,9 @@ public class JFCliente extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível gravar novo cliente", "Cliente", JOptionPane.INFORMATION_MESSAGE);
                 }
+                
             } else {
-                sucesso = clienteController.Alterar(Integer.parseInt(txt_ID.getText()), txt_CPF.getText().replace(".", "").replace("-", ""), txt_Nome.getText(), txt_SobreNome.getText());
+                sucesso = clienteController.Alterar(Integer.parseInt(txt_ID.getText()), cpf, txt_Nome.getText(), txt_SobreNome.getText());
 
                 if (sucesso) {
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Cliente", JOptionPane.INFORMATION_MESSAGE);
@@ -277,7 +296,7 @@ public class JFCliente extends javax.swing.JFrame {
         listaClientes = clienteController.BuscarTodos();
 
         listaClientes.forEach((cli) -> {
-            model.addRow(new String[]{cli.getId() + "", cli.getCpf(), cli.getNome(), cli.getSobreNome()});
+            model.addRow(new String[]{cli.getId() + "", clienteController.cpfFormatado(cli.getCpf()), cli.getNome(), cli.getSobreNome()});
         });
 
         TableCliente.setModel(model);

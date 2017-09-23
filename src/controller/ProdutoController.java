@@ -13,7 +13,7 @@ public class ProdutoController {
 
     Produto produto;
 
-    public boolean Gravar(String descricao) {
+    public boolean Gravar(String descricao) throws Exception {
 
         produto = new Produto(descricao);
 
@@ -22,7 +22,7 @@ public class ProdutoController {
 
     }
 
-    public boolean Alterar(int id, String descricao) {
+    public boolean Alterar(int id, String descricao) throws Exception {
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produto = new Produto(id, descricao);
@@ -31,7 +31,7 @@ public class ProdutoController {
 
     }
 
-    public boolean Excluir(int id) {
+    public boolean Excluir(int id) throws Exception {
         ProdutoDAO produtoDAO = new ProdutoDAO();
         return produtoDAO.Excluir(id);
     }

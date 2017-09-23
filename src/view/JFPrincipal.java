@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,13 @@ public class JFPrincipal extends javax.swing.JFrame {
      */
     public JFPrincipal() {
         initComponents();
+
+         File file = new File("C:\\Temp\\configSistemaPedidos.txt");
+        
+         if (!file.exists()) {
+                VerificaIntegridade();
+            }
+        
     }
 
     /**
@@ -78,8 +86,8 @@ public class JFPrincipal extends javax.swing.JFrame {
         setTitle("Sistema de Pedidos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/meus-pedidos.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/fundo.jpg"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(752, 585));
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/icon_cliente.png"))); // NOI18N
         jMenu6.setText("Clientes");
@@ -146,13 +154,21 @@ public class JFPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, Short.MAX_VALUE)
+            .addGap(0, 752, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 585, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -163,6 +179,17 @@ public class JFPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu6ActionPerformed
 
+    private void VerificaIntegridade()
+    {
+        JFParametroGeral frame;
+        try {
+            frame = new JFParametroGeral();
+            frame.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
         JFCliente frame;
         try {

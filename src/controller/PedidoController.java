@@ -4,6 +4,8 @@ package controller;
 import dao.PedidoDAO;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Cliente;
 import model.ItemDoPedido;
 import model.Pedido;
@@ -14,7 +16,7 @@ import model.Pedido;
  */
 public class PedidoController {
 
-    public int GravarPedido(Cliente cliente, ArrayList<ItemDoPedido> itens) {
+    public int GravarPedido(Cliente cliente, ArrayList<ItemDoPedido> itens) throws Exception {
 
         Date data = new Date(System.currentTimeMillis());
         Pedido pedido = new Pedido(0, data.toString(), cliente, itens);
@@ -25,7 +27,11 @@ public class PedidoController {
 
         if (idPedido > 0) {
             itens.forEach((itemDoPedido) -> {
-                PedidoDAO.GravarItemPedido(idPedido, itemDoPedido.getProduto().getId(),itemDoPedido.getQuantidade());
+                try {
+                    PedidoDAO.GravarItemPedido(idPedido, itemDoPedido.getProduto().getId(),itemDoPedido.getQuantidade());
+                } catch (Exception ex) {
+                    Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
         }
         

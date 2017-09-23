@@ -39,7 +39,11 @@ public class JFProduto extends javax.swing.JFrame {
         TableProdutos = new javax.swing.JTable();
         txt_ID = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Produtos");
+        setMaximumSize(new java.awt.Dimension(650, 500));
+        setMinimumSize(new java.awt.Dimension(650, 500));
+        setPreferredSize(new java.awt.Dimension(650, 500));
         setType(java.awt.Window.Type.POPUP);
 
         jLabel1.setText("Código");
@@ -94,31 +98,29 @@ public class JFProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btn_Limpar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Excluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_Gravar))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txt_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn_Buscar))
-                                    .addComponent(txt_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(txt_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Buscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE))
+                            .addComponent(txt_Descricao)))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_Limpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_Excluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_Gravar)))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,20 +134,35 @@ public class JFProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_Gravar)
                     .addComponent(btn_Excluir)
                     .addComponent(btn_Limpar))
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
+
+        getAccessibleContext().setAccessibleName("Produtos");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void CarregarTableProdutos(int id) throws Exception {
+        model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Descrição");
+
+        produtoController = new ProdutoController();
+        produto = produtoController.Buscar(id);        
+        model.addRow(new String[]{produto.getId() + "", produto.getDescricao()});
+        TableProdutos.setModel(model);
+    }
+    
+    
     private void CarregarTableProdutos() throws Exception {
         model = new DefaultTableModel();
         model.addColumn("Código");
@@ -167,6 +184,12 @@ public class JFProduto extends javax.swing.JFrame {
             produtoController = new ProdutoController();
 
             if (txt_ID.getText().trim().isEmpty()) {
+                
+                if (txt_Descricao.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Informe a descrição do produto e clique em gravar.", "Produto", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                
                 sucesso = produtoController.Gravar(txt_Descricao.getText());
 
                 if (sucesso) {
@@ -217,12 +240,17 @@ public class JFProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ExcluirActionPerformed
 
     private void btn_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimparActionPerformed
-        Limpar();
+        try {
+            Limpar();
+        } catch (Exception ex) {
+            Logger.getLogger(JFProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_LimparActionPerformed
 
-    private void Limpar() {
+    private void Limpar() throws Exception {
         txt_Descricao.setText("");
         txt_ID.setText("");
+        CarregarTableProdutos();
     }
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
@@ -231,9 +259,10 @@ public class JFProduto extends javax.swing.JFrame {
             if (!txt_ID.getText().trim().isEmpty()) {
                 produtoController = new ProdutoController();
                 produto = produtoController.Buscar(Integer.parseInt(txt_ID.getText()));
-
+                                
                 if (produto != null) {
                     txt_Descricao.setText(produto.getDescricao());
+                    CarregarTableProdutos(produto.getId());  
                 }
                 else
                 {

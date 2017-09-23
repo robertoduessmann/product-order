@@ -27,7 +27,7 @@ public class PedidoDAO {
     ProdutoController produtoController;
     ResultSet rs;
 
-    public static int GravarPedido(Pedido pedido) {
+    public static int GravarPedido(Pedido pedido) throws Exception {
         try {
             Connection conexao = ConexaoMySQL.getConexaoMySQL();
             int lastId = 0;
@@ -51,7 +51,7 @@ public class PedidoDAO {
         }
     }
 
-    public static int GravarItemPedido(int idPedido, int idProduto, int quantidade) {
+    public static int GravarItemPedido(int idPedido, int idProduto, int quantidade) throws Exception {
 
         try {
             Connection conexao = ConexaoMySQL.getConexaoMySQL();

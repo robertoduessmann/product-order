@@ -21,7 +21,7 @@ public class ProdutoDAO {
     Produto produto;
     ArrayList<Produto> listaProdutos;
 
-    public boolean Gravar(Produto produto) {
+    public boolean Gravar(Produto produto) throws Exception {
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();
             pst = conexao.prepareStatement("INSERT INTO PRODUTO (DESCRICAO) VALUES (?);");
@@ -34,7 +34,7 @@ public class ProdutoDAO {
         }
     }
 
-    public boolean Alterar(Produto produto) {
+    public boolean Alterar(Produto produto) throws Exception {
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();
             pst = conexao.prepareStatement("UPDATE PRODUTO SET DESCRICAO = ? WHERE ID = ?;");
@@ -49,7 +49,7 @@ public class ProdutoDAO {
         }
     }
 
-    public boolean Excluir(Integer id) {
+    public boolean Excluir(Integer id) throws Exception {
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();
             pst = conexao.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?;");

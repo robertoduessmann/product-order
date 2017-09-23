@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
-import model.ItemDoPedido;
 import model.Pedido;
 
 /**
@@ -17,7 +16,7 @@ public class JFPedidos extends javax.swing.JFrame {
 
     Cliente cliente;
     ClienteController clienteController;
-    DefaultTableModel model;    
+    DefaultTableModel model;
     PedidoController pedidoController;
     ArrayList<Pedido> listaPedidos;
 
@@ -37,8 +36,12 @@ public class JFPedidos extends javax.swing.JFrame {
         TablePedidos = new javax.swing.JTable();
         txt_CPF = new javax.swing.JFormattedTextField();
         txt_IdPedido = new javax.swing.JFormattedTextField();
+        btn_Limpar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(650, 500));
+        setMinimumSize(new java.awt.Dimension(650, 500));
+        setPreferredSize(new java.awt.Dimension(650, 500));
         setType(java.awt.Window.Type.POPUP);
 
         jLabel1.setText("CPF");
@@ -52,7 +55,10 @@ public class JFPedidos extends javax.swing.JFrame {
 
         jLabel4.setText("Código do Pedido");
 
+        lbl_Nome.setDisplayedMnemonic('L');
         lbl_Nome.setText(" ");
+        lbl_Nome.setMaximumSize(null);
+        lbl_Nome.setMinimumSize(null);
 
         TablePedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -76,14 +82,25 @@ public class JFPedidos extends javax.swing.JFrame {
 
         txt_IdPedido.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+        btn_Limpar.setText("Limpar");
+        btn_Limpar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_LimparMouseClicked(evt);
+            }
+        });
+        btn_Limpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LimparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -93,10 +110,17 @@ public class JFPedidos extends javax.swing.JFrame {
                             .addComponent(txt_CPF)
                             .addComponent(txt_IdPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Buscar)
-                            .addComponent(lbl_Nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(466, 466, 466)
+                                .addComponent(btn_Limpar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Buscar))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(34, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,17 +128,18 @@ public class JFPedidos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lbl_Nome)
+                    .addComponent(lbl_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_CPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(btn_Buscar))
-                    .addComponent(txt_IdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_IdPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_Buscar)
+                        .addComponent(btn_Limpar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,29 +148,53 @@ public class JFPedidos extends javax.swing.JFrame {
 
     private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
         try {
-            if (txt_IdPedido.getText().trim().isEmpty()) {
+            txt_CPF.setEnabled(false);
+            txt_IdPedido.setEnabled(false);
+            String cpf = txt_CPF.getText().replace(".", "").replace("-", "").trim();
+            String idPedido = txt_IdPedido.getText().trim();
+
+            if (cpf.isEmpty() && idPedido.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Informe o CPF do cliente ou código de um pedido e clique em buscar.", "Novo Pedido", JOptionPane.INFORMATION_MESSAGE);
+                Limpar();
+            } else if (idPedido.trim().isEmpty()) {
                 clienteController = new ClienteController();
-                cliente = clienteController.Buscar(txt_CPF.getText().replace(".", "").replace("-", ""));
+                cliente = clienteController.Buscar(cpf);
 
                 CarregarTableClientes(cliente);
 
                 if (cliente != null) {
                     lbl_Nome.setText(cliente.getNome() + " " + cliente.getSobreNome());
                 }
-
-            } else if (txt_CPF.getText().replace(".", "").replace("-", "").trim().isEmpty()) {
-                CarregarTableClientes(Integer.parseInt(txt_IdPedido.getText()));
+            } else if (cpf.isEmpty()) {
+                CarregarTableClientes(Integer.parseInt(idPedido));
             } else {
                 clienteController = new ClienteController();
-                cliente = clienteController.Buscar(txt_CPF.getText().replace(".", "").replace("-", ""));
+                cliente = clienteController.Buscar(cpf);
 
-                CarregarTableClientes(cliente, Integer.parseInt(txt_IdPedido.getText()));
+                CarregarTableClientes(cliente, Integer.parseInt(idPedido));
             }
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação. Descrição: " + e.getMessage(), "Produto", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btn_BuscarActionPerformed
+
+    private void btn_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LimparActionPerformed
+        Limpar();
+    }//GEN-LAST:event_btn_LimparActionPerformed
+
+    private void Limpar() {
+        txt_CPF.setText("");
+        txt_IdPedido.setText("");
+        lbl_Nome.setText("");
+        TablePedidos.setModel(new DefaultTableModel());
+        txt_CPF.setEnabled(true);
+        txt_IdPedido.setEnabled(true);
+    }
+
+
+    private void btn_LimparMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LimparMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_LimparMouseClicked
 
     private void CarregarTableClientes(Cliente cliente) throws Exception {
         model = new DefaultTableModel();
@@ -186,6 +235,7 @@ public class JFPedidos extends javax.swing.JFrame {
             return pedido;
         }).forEachOrdered((pedido) -> {
             txt_CPF.setText(pedido.getCliente().getCpf());
+            lbl_Nome.setText(pedido.getCliente().getNome() + " " + pedido.getCliente().getSobreNome());
         });
         TablePedidos.setModel(model);
     }
@@ -206,13 +256,14 @@ public class JFPedidos extends javax.swing.JFrame {
             });
             return pedido;
         }).filter((pedido) -> (pedido.getCliente() != null)).map((pedido) -> {
-            
+
             return pedido;
         }).forEachOrdered((pedido) -> {
             txt_CPF.setText(pedido.getCliente().getCpf());
+            lbl_Nome.setText(pedido.getCliente().getNome() + " " + pedido.getCliente().getSobreNome());
         });
         TablePedidos.setModel(model);
-        
+
 //          for (Pedido listaPedido : listaPedidos) {
 //            for (ItemDoPedido item : listaPedido.getItens()) {
 //                 model.addRow(new String[]{listaPedido.getId() + "", listaPedido.getData(), item.getProduto().getDescricao(), item.getQuantidade() + ""});
@@ -262,6 +313,7 @@ public class JFPedidos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablePedidos;
     private javax.swing.JButton btn_Buscar;
+    private javax.swing.JButton btn_Limpar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;

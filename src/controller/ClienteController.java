@@ -14,7 +14,7 @@ public class ClienteController {
         return clienteDao.Buscar(cpf);
     }
 
-    public boolean Gravar(String cpf, String nome, String sobrenome) {        
+    public boolean Gravar(String cpf, String nome, String sobrenome) throws Exception {        
         cliente = new Cliente(cpf, nome, sobrenome);        
         clienteDao = new ClienteDAO();
         return clienteDao.Gravar(cliente);
@@ -29,7 +29,7 @@ public class ClienteController {
         return clienteDao.Excluir(cpf);
     }
 
-    public boolean Alterar(int id, String cpf, String nome, String sobrenome) {
+    public boolean Alterar(int id, String cpf, String nome, String sobrenome) throws Exception {
         clienteDao = new ClienteDAO();        
         cliente = new Cliente(id, cpf, nome, sobrenome);
         return clienteDao.Alterar(cliente);
@@ -45,9 +45,14 @@ public class ClienteController {
         return clienteDao.BuscarTodos(idCliente);        
     }
     
-    private boolean TemPedidoRealizado(String cpf)
+    private boolean TemPedidoRealizado(String cpf) throws Exception
     {
         clienteDao = new ClienteDAO();
         return clienteDao.TemPedidoRealizado(cpf); 
+    }
+    
+    public static String cpfFormatado(String cpf)
+    {
+        return cpf.substring(0,3) + "." + cpf.substring(3,6) + "." + cpf.substring(6,9) + "-" + cpf.substring(9,11);
     }
 }

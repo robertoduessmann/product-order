@@ -44,7 +44,7 @@ public class ClienteDAO {
         }
     }
 
-    public Boolean Gravar(Cliente cliente) {
+    public Boolean Gravar(Cliente cliente) throws Exception {
         
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();
@@ -60,7 +60,7 @@ public class ClienteDAO {
         }
     }
 
-    public boolean Excluir(String cpf) {
+    public boolean Excluir(String cpf) throws Exception {
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();
             pst = conexao.prepareStatement("DELETE FROM CLIENTE WHERE CPF = ?;");
@@ -74,7 +74,7 @@ public class ClienteDAO {
         }
     }
 
-    public boolean Alterar(Cliente cliente) {
+    public boolean Alterar(Cliente cliente) throws Exception {
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();
 
@@ -148,7 +148,7 @@ public class ClienteDAO {
         }
     }
 
-    public boolean TemPedidoRealizado(String cpf) {         
+    public boolean TemPedidoRealizado(String cpf) throws Exception {         
         try {
             conexao = ConexaoMySQL.getConexaoMySQL();    
             int lastId = 0;

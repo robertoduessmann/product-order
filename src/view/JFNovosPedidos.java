@@ -53,7 +53,9 @@ public class JFNovosPedidos extends javax.swing.JFrame {
         btn_Remover = new javax.swing.JButton();
         txt_CPF = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Pedido");
+        setPreferredSize(new java.awt.Dimension(650, 500));
         setType(java.awt.Window.Type.POPUP);
 
         jLabel1.setText("CPF");
@@ -83,11 +85,12 @@ public class JFNovosPedidos extends javax.swing.JFrame {
             }
         });
 
+        txtArea_Produtos.setEditable(false);
         txtArea_Produtos.setColumns(20);
         txtArea_Produtos.setRows(5);
         jScrollPane1.setViewportView(txtArea_Produtos);
 
-        btn_Confirmar.setText("Confirmar");
+        btn_Confirmar.setText("Gravar");
         btn_Confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ConfirmarActionPerformed(evt);
@@ -118,7 +121,7 @@ public class JFNovosPedidos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(29, 29, 29)
@@ -126,27 +129,30 @@ public class JFNovosPedidos extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(btn_Buscar)
                         .addGap(6, 6, 6)
-                        .addComponent(lbl_Nome))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(10, 10, 10)
-                        .addComponent(Cbo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel5)
-                        .addGap(10, 10, 10)
-                        .addComponent(txt_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_Adicionar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_IDRemocao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(btn_Remover)
-                        .addGap(258, 258, 258)
-                        .addComponent(btn_Confirmar))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(lbl_Nome)
+                        .addContainerGap(323, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(10, 10, 10)
+                                .addComponent(Cbo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_Adicionar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_IDRemocao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_Remover)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_Confirmar)))
+                        .addGap(22, 22, 22))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,33 +169,28 @@ public class JFNovosPedidos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(lbl_Nome)))
-                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(7, 7, 7)
                         .addComponent(Cbo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(txt_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_Adicionar))
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_IDRemocao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)))
+                            .addComponent(txt_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Adicionar)
+                            .addComponent(jLabel5))))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Confirmar)
                     .addComponent(btn_Remover)
-                    .addComponent(btn_Confirmar))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(txt_IDRemocao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(19, 19, 19))
         );
 
         txt_IDRemocao.getAccessibleContext().setAccessibleDescription("Favor informe o item do produto que deseja remove");
@@ -241,6 +242,16 @@ public class JFNovosPedidos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Informe a quantidade desejada.", "Novo Pedido", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
+            else
+            {
+                try {
+                    int qtd = Integer.parseInt(txt_Quantidade.getText());                    
+                    if(qtd == 0)
+                        throw new Exception();
+                } catch (Exception e) {
+                    throw new Exception("Quantidade informada inválida.");
+                }
+            }
 
             produtoController = new ProdutoController();
             produto = produtoController.Buscar(Cbo_Produtos.getSelectedItem().toString());
@@ -251,7 +262,7 @@ public class JFNovosPedidos extends javax.swing.JFrame {
             CarregarItensSelecionados();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação. Descrição: " + e.getMessage(), "Cliente", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação. \nDescrição: " + e.getMessage(), "Novo Pedido", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btn_AdicionarMouseClicked
 
@@ -259,11 +270,9 @@ public class JFNovosPedidos extends javax.swing.JFrame {
 
         ArrayList<ItemDoPedido> ListaNova = new ArrayList<ItemDoPedido>();
 
-        for (ItemDoPedido itemDoPedido : ListaItemDoPedido) {
-            if (itemDoPedido.getIdItem() != Integer.parseInt(txt_IDRemocao.getText())) {
-                ListaNova.add(itemDoPedido);
-            }
-        }
+        ListaItemDoPedido.stream().filter((itemDoPedido) -> (itemDoPedido.getIdItem() != Integer.parseInt(txt_IDRemocao.getText()))).forEachOrdered((itemDoPedido) -> {
+            ListaNova.add(itemDoPedido);
+        });
 
         ListaItemDoPedido = new ArrayList<ItemDoPedido>();
         ListaItemDoPedido.addAll(ListaNova);
@@ -277,6 +286,12 @@ public class JFNovosPedidos extends javax.swing.JFrame {
             pedidoController = new PedidoController();
             clienteController = new ClienteController();
 
+            if(ListaItemDoPedido.isEmpty())
+            {
+                JOptionPane.showMessageDialog(null, "Nenhum pedido adicionado ao carrinho.", "Novo Pedido", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
             int idPedido = pedidoController.GravarPedido(clienteController.Buscar(txt_CPF.getText().replace(".", "").replace("-", "")), ListaItemDoPedido);
 
             if (idPedido > 0) {
